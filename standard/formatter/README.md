@@ -1,11 +1,11 @@
 # 公司通用代码格式化模板
 
-定制原因详见[第二章:格式规约](/standard/docs/chapter02.md)，同时参考了一些Intellij IDEA默认模板的部分设置。
+定制原因详见[《唯品会Java开发手册》 第二章:格式规约](https://vipshop.github.io/vjtools/#/standard/chapter02)，同时参考了一些Intellij IDEA默认模板的部分设置。
 
 将下列profile下载并导入IDE即可，导入后Profile名称为`vipshop2.0`：
 
-* [Eclipse Code Formatter Profile](https://raw.githubusercontent.com/vipshop/vjtools/master/standard/formatter/vipshop-code-conventions.xml)
-* [Intellij Code Formatter Profile](https://raw.githubusercontent.com/vipshop/vjtools/master/standard/formatter/vipshop-code-conventions-idea.xml)
+* [Eclipse Code Formatter Profile](https://raw.githubusercontent.com/vipshop/vjtools/master/standard/formatter/vjtools-code-conventions-eclipse.xml)
+* [Intellij Code Formatter Profile](https://raw.githubusercontent.com/vipshop/vjtools/master/standard/formatter/vjtools-code-conventions-idea.xml)
 
 因为Intellij导入Eclipse Profile存在问题，因此同时提供了两者的Profile。
 
@@ -19,13 +19,7 @@
 
 注意：Eclipse后来的build-in模板，代码行宽已经默认120。
 
-## 2. 与原Venus代码格式化模板的区别
-
-* 不格式化JavaDoc
-* 不格式化文件头注释(即License声明部分)
-* 参考Intellij IDEA默认模板的修改(见后)
-
-## 3. 与IDEA默认模板的区别
+## 2. 与IDEA默认模板的区别
 
 
 本模板参考了Intellij IDEA默认模板中如下部分： 

@@ -102,8 +102,9 @@ public class MapUtil {
 	 * 
 	 * 未初始化数组大小, 默认为16个桶.
 	 * 
-	 * @see com.google.common.collect.Maps#newHashMap()
+	 * @deprecated JDK7开始已经简化 
 	 */
+	@Deprecated
 	public static <K, V> HashMap<K, V> newHashMap() {
 		return new HashMap<K, V>();
 	}
@@ -118,7 +119,7 @@ public class MapUtil {
 	 * @see com.google.common.collect.Maps#newHashMap(int)
 	 */
 	public static <K, V> HashMap<K, V> newHashMapWithCapacity(int expectedSize, float loadFactor) {
-		int finalSize = (int) ((double) expectedSize / loadFactor + 1.0F);
+		int finalSize = (int) (expectedSize / loadFactor + 1.0F);
 		return new HashMap<K, V>(finalSize, loadFactor);
 	}
 

@@ -1,7 +1,18 @@
+# Eclipse project files
+.classpath
 .project
 .settings/
-.classpath
+
+# Intellij project files
+*.iml
+.idea/
+
+# Otherse
 *.log
 target/
-standard/docs/ali1.3.1.pdf
-standard/docs/vip-java-standard.md
+
+vip-java-standard.md
+release.sh
+vjmap/vjmap/
+vjtop/vjtop/
+vjmxcli/vjmxcli

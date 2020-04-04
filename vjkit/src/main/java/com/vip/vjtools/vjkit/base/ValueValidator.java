@@ -3,17 +3,25 @@ package com.vip.vjtools.vjkit.base;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * 配值较验器 
+ * 数值校验取值器 
  * 
- * 提供对值进行较验的api，并根据较验结果取值且返回
- *
+ * 提供对配置值进行校验，并根据结果决定是否使用默认值。
+ * 
+ * Guva, Commons Lang里的Validate类用于判断并抛异常。
+ * 
+ * 而ValueValidator的行为是取默认值，多用于配置值的处理。
+ * 
+ * 除默认提供的Validator，可自行扩写。
  */
 public class ValueValidator {
-	
+
 	/**
 	 * 对目标值进行校验，并根据校验结果取值
-	 * <br>使用示例(校验目标值是否大于0, 如果小于 0 则取值为 1)
-	 * <br>ValueValidator.checkAndGet(-1, 1, Validator.INTEGER_GT_ZERO_VALIDATOR)</br>
+	 * 
+	 * 使用示例(校验目标值是否大于0, 如果小于 0 则取值为 1)
+	 * 
+	 * ValueValidator.checkAndGet(idleTime, 1, Validator.INTEGER_GT_ZERO_VALIDATOR)
+	 * 
 	 * @param value 校验值
 	 * @param defaultValue 校验失败默认值
 	 * @param v 校验器
@@ -28,10 +36,14 @@ public class ValueValidator {
 	}
 
 	/**
-	 * 对Properties值进行规则匹配的验证器
+	 * 对值进行规则匹配的验证器
 	 */
 	public interface Validator<T> {
-		
+		/**
+		 * 校验值是否匹配
+		 */
+		boolean validate(T value);
+
 		/**
 		 * 校验器: 数值配置不为null, 且大于0较验
 		 */
@@ -61,11 +73,5 @@ public class ValueValidator {
 				return "true".equalsIgnoreCase(value) || "false".equalsIgnoreCase(value);
 			}
 		};
-		
-		/**
-		 * 值规则匹配方法实现
-		 */
-		boolean validate(T value);
-
 	}
 }

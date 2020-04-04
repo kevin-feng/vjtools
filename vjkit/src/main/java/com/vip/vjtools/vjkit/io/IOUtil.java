@@ -1,6 +1,7 @@
 package com.vip.vjtools.vjkit.io;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,18 +24,20 @@ import com.vip.vjtools.vjkit.text.Charsets;
  * 
  * 建议使用Apache Commons IO和Guava关于IO的工具类(com.google.common.io.*), 在未引入Commons IO时可以用本类做最基本的事情.
  * 
- * <p>
  * 1. 安静关闭Closeable对象
- * <p>
- * 2. 读出InputStream/Reader内容到String 或 List<String>
- * <p>
- * 3. 将String写到OutputStream/Writer
- * <p>
- * 4. InputStream/Reader与OutputStream/Writer之间复制的copy
+ * 
+ * 2. 读出InputStream/Reader全部内容到String 或 List<String>
+ * 
+ * 3. 读出InputStream/Reader一行内容到String
+ * 
+ * 4. 将String写到OutputStream/Writer
+ * 
+ * 5. 将String 转换为InputStream/Reader
+ * 
+ * 5. InputStream/Reader与OutputStream/Writer之间复制的copy
  * 
  */
 public class IOUtil {
-	private static final String CLOSE_ERROR_MESSAGE = "IOException thrown while closing Closeable.";
 
 	private static Logger logger = LoggerFactory.getLogger(IOUtil.class);
 
@@ -50,7 +53,7 @@ public class IOUtil {
 		try {
 			closeable.close();
 		} catch (IOException e) {
-			logger.warn(CLOSE_ERROR_MESSAGE, e);
+			logger.warn("IOException thrown while closing Closeable.", e);
 		}
 	}
 
@@ -75,7 +78,7 @@ public class IOUtil {
 	 * 简单读取Reader的每行内容到List<String>
 	 */
 	public static List<String> toLines(final InputStream input) throws IOException {
-		return toLines(new InputStreamReader(input, Charsets.UTF_8));
+		return CharStreams.readLines(new BufferedReader(new InputStreamReader(input, Charsets.UTF_8)));
 	}
 
 	/**
@@ -85,6 +88,20 @@ public class IOUtil {
 	 */
 	public static List<String> toLines(final Reader input) throws IOException {
 		return CharStreams.readLines(toBufferedReader(input));
+	}
+
+	/**
+	 * 读取一行数据，比如System.in的用户输入
+	 */
+	public static String readLine(final InputStream input) throws IOException {
+		return new BufferedReader(new InputStreamReader(input, Charsets.UTF_8)).readLine();
+	}
+
+	/**
+	 * 读取一行数据
+	 */
+	public static String readLine(final Reader reader) throws IOException {
+		return toBufferedReader(reader).readLine();
 	}
 
 	/**
@@ -103,6 +120,20 @@ public class IOUtil {
 		if (data != null) {
 			output.write(data);
 		}
+	}
+
+	/**
+	 * 字符串转换成InputStream
+	 */
+	public static InputStream toInputStream(String input) {
+		return new ByteArrayInputStream(input.getBytes(Charsets.UTF_8));
+	}
+
+	/**
+	 * 字符串转换成Reader
+	 */
+	public static Reader toInputStreamReader(String input) {
+		return new InputStreamReader(toInputStream(input), Charsets.UTF_8);
 	}
 
 	/**
